@@ -1,0 +1,36 @@
+{
+  "name": "js-15-puzzle",
+  "version": "0.1.0",
+  "description": "Fifteen puzzle game that written with JavaScript language and Phaser game engine.",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack --config webpack/prod.js",
+    "start": "webpack serve --config webpack/base.js --open 'google-chrome'",
+    "test": "jest"
+  },
+  "author": "Alexander Richterich <richterich@yahoo.com> (https://richterich.dev)",
+  "license": "MIT",
+  "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+  "homepage": "https://github.com/richterich/js-15-puzzle#readme",
+  "dependencies": {
+    "phaser": "^3.24.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "eslint": "^7.14.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "raw-loader": "^4.0.2",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.4.0"
+  }
+}
