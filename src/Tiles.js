@@ -45,6 +45,21 @@ class Tiles extends Phaser.GameObjects.Group {
         this.combination = combination;
     }
 
+    shuffle() {
+        this.combination.align();
+        this.combination.shuffle();
+        this.updateFrames(this.combination.values);
+    }
+
+    updateFrames(values) {
+        for (let i = 0, j = 0; i < values.length; ++i) {
+            if (values[i] !== 0) {
+                this.children.entries[j].setFrame('tile' + values[i]);
+                ++j;
+            }
+        }
+    }
+
     setUpInputListener() {
         const setUpInputHandlers = (tile) => {
             tile.setInteractive();

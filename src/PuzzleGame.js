@@ -22,10 +22,8 @@ class PuzzleGame extends Phaser.Scene {
             'background'
         );
 
-        this.combination = new Combination();
-        this.combination.align();
-        
-        this.emojis = new Tiles(this, this.combination);
+        this.emojis = new Tiles(this, new Combination());
+        this.emojis.shuffle();
         this.emojis.setUpInputListener();
 
 
