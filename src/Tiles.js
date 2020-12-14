@@ -50,12 +50,26 @@ class Tiles extends Phaser.GameObjects.Group {
         this.combination.align();
         this.combination.shuffle();
         this.updateFrames(this.combination.values);
+        this.updatePositions(this.combination.values);
     }
 
     updateFrames(values) {
         for (let i = 0, j = 0; i < values.length; ++i) {
             if (values[i] !== 0) {
                 this.children.entries[j].setFrame('tile' + values[i]);
+                ++j;
+            }
+        }
+    }
+
+    updatePositions(values) {
+        let x = 0,
+            y = 0;
+        for (let i = 0, j = 0; i < values.length; ++i) {
+            x = Math.floor(i % alignConfig.width) * alignConfig.cellWidth + alignConfig.x;
+            y = Math.floor(i / alignConfig.height) * alignConfig.cellHeight + alignConfig.y;
+            if (values[i] !== 0) {
+                this.children.entries[j].setPosition(x, y);
                 ++j;
             }
         }
