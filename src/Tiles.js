@@ -21,6 +21,14 @@ const TILE_NAMES = [
     'tile14',
     'tile15',
 ];
+const alignConfig = {
+    width: 4,
+    height: 4,
+    cellWidth: 90,
+    cellHeight: 90,
+    x: 280,
+    y: 200,
+};
 
 import Phaser from 'phaser';
 import Tile from './Tile';
@@ -33,14 +41,7 @@ class Tiles extends Phaser.GameObjects.Group {
             classType: Tile,
             key: ATLAS_NAME,
             frame: TILE_NAMES,
-            gridAlign: {
-                width: 4,
-                height: 4,
-                cellWidth: 90,
-                cellHeight: 90,
-                x: 280,
-                y: 200,
-            },
+            gridAlign: alignConfig,
         });
         this.combination = combination;
     }
@@ -67,9 +68,12 @@ class Tiles extends Phaser.GameObjects.Group {
                 let emptyIndex = this.combination.emptyIndex();
                 let emptyPosition = this.combination.gridPosition(emptyIndex);
                 let blank = new Phaser.Math.Vector2(emptyPosition);
-                let hit = pointer.position.subtract({ x: 280, y: 200 });
-                hit.x = Math.round(Math.abs(hit.x) / 90);
-                hit.y = Math.round(Math.abs(hit.y) / 90);
+                let hit = pointer.position.subtract({
+                    x: alignConfig.x,
+                    y: alignConfig.y,
+                });
+                hit.x = Math.round(Math.abs(hit.x) / alignConfig.cellWidth);
+                hit.y = Math.round(Math.abs(hit.y) / alignConfig.cellHeight);
                 let hitIndex = this.combination.arrayIndex(hit);
                 let direction = blank.subtract(hit);
                 if (direction.equals(Phaser.Math.Vector2.LEFT)) {
