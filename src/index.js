@@ -6,4 +6,6 @@
 import Phaser from 'phaser';
 import GameConfig from './GameConfig';
 
-const game = new Phaser.Game(GameConfig);
+window.addEventListener('load', () => {
+    const game = new Phaser.Game(GameConfig);
+});
