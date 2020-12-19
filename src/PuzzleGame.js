@@ -5,7 +5,6 @@
  */
 import Phaser from 'phaser';
 import Combination from './Combination';
-import GameConfig from './GameConfig';
 import Tiles from './Tiles';
 
 class PuzzleGame extends Phaser.Scene {
@@ -16,22 +15,9 @@ class PuzzleGame extends Phaser.Scene {
     }
 
     create() {
-        let background = this.add.image(
-            GameConfig.width / 2,
-            GameConfig.height / 2,
-            'background'
-        );
-
         this.emojis = new Tiles(this, new Combination());
         this.emojis.shuffle();
         this.emojis.setUpInputListener();
-
-
-        this.tweens.add({
-            targets: background,
-            alpha: { from: 0, to: 1 },
-            duration: 1000,
-        });
 
         this.tweens.add({
             targets: this.emojis.getChildren(),

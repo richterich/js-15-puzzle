@@ -3,6 +3,7 @@
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
+import Phaser from 'phaser';
 import PuzzleGame from './PuzzleGame';
 import BootGame from './BootGame';
 
@@ -17,6 +18,7 @@ const GameConfig = {
     url: 'https://fifteen-puzzle.richterich.dev',
     version: '0.1.0',
     banner: true,
+    transparent: true
 };
 
 export default GameConfig;
