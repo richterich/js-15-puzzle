@@ -46,9 +46,12 @@ class Tiles extends Phaser.GameObjects.Group {
         this.combination = combination;
     }
 
-    shuffle() {
+    randomCombination() {
         this.combination.align();
         this.combination.shuffle();
+        if (!this.combination.isSolvable()) {
+            this.combination.rotateLeft();
+        }
         this.updateFrames(this.combination.values);
         this.updatePositions(this.combination.values);
     }

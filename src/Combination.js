@@ -34,13 +34,14 @@ class Combination {
         return numberOfInversions;
     }
     /**
-     * @method emptyLine - returns the line number of the empty tile from last row.
+     * @method emptyLine - finds the line number of the empty tile, starts from last row.
+     * @returns { NUmber } - integer value that indicate row with empty tile.
      */
     emptyLine() {
         let lineNumber;
         for (let i = LENGTH - 1; i >= 0; --i) {
             if (0 === this.values[i]) {
-                lineNumber = 4 - Math.floor(i / 4);
+                lineNumber = SIDE - Math.floor(i / SIDE);
                 break;
             }
         }
@@ -77,7 +78,7 @@ class Combination {
         let rotatedValues = new Array(LENGTH);
         let index = 0;
         for (let i = 0; i < LENGTH; ++i) {
-            index += 4;
+            index += SIDE;
             if (index > LENGTH) {
                 index = (index % LENGTH) - 1;
             }
@@ -122,6 +123,19 @@ class Combination {
     emptyIndex() {
         const emptyElemet = (tile) => tile === 0;
         return this.values.findIndex(emptyElemet);
+    }
+    /**
+     * @method isSolvable - Checks the combination for solvability.
+     * @returns { Boolean } - True if combination can be solved, otherwise - False.
+     */
+    isSolvable() {
+        const inversionsNumber = this.inversions();
+        const emptyTileRow = this.emptyLine();
+        if (0 !== emptyTileRow % 2) {
+            return 0 === inversionsNumber % 2;
+        } else {
+            return 0 !== inversionsNumber % 2;
+        }
     }
 }
 

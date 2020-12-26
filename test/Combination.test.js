@@ -8,7 +8,7 @@ import Combination from '../src/Combination';
 test('Instanced values length', () => {
     const expectedLength = 16;
     const combination = new Combination();
-    expect(combination.values.length).toBe(expectedLength);
+    expect(combination.values.length).toEqual(expectedLength);
 });
 
 test('Number of invertions', () => {
@@ -99,7 +99,7 @@ test('Row and Col position to index position', () => {
     }
 });
 
-test('Swap two tiles (BROKEN COMBINATION!)', () => {
+test('Swap two tiles (It\'ll mutate the combination!)', () => {
     const expectedVal = [
         undefined,
         2,
@@ -124,4 +124,16 @@ test('Swap two tiles (BROKEN COMBINATION!)', () => {
     combination.swapTiles(0, 16);
     expect(combination.values.length).toEqual(expectedVal.length);
     expect(combination.values).toEqual(expectedVal);
+});
+
+test('Check unsolvable combination', () => {
+    const combination = new Combination();
+    combination.values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 14, 0];
+    expect(combination.isSolvable()).toBe(false);
+});
+
+test('Check solvable combination', () => {
+    const combination = new Combination();
+    combination.values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+    expect(combination.isSolvable()).toBe(true);
 });
