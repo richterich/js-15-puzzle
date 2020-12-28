@@ -39,11 +39,11 @@ window.addEventListener('load', () => {
             } else {
                 body.style.backgroundImage = imageUrl;
             }
-            const game = new Phaser.Game(GameConfig);
+            new Phaser.Game(GameConfig);
         })
         .catch((err) => {
             body.style.backgroundImage = imageUrl;
-            const game = new Phaser.Game(GameConfig);
+            new Phaser.Game(GameConfig);
             throw err;
         });
 });
