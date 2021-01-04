@@ -3,7 +3,7 @@
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
-const MEDIUM = 1366; // any screen 1366 pixels.
+const MEDIUM = 1920; // any screen 1920 pixels.
 const FULL = 'full'; // full image size
 const REGULAR = 'regular'; // regular image type
 const LANDSCAPE = 'landscape'; // default orientation is landscape
