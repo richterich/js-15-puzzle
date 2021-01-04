@@ -5,15 +5,15 @@
  */
 import Phaser from 'phaser';
 import GameConfig from './GameConfig';
+import backgroundUrl from './BackgroundUrl';
 
 window.addEventListener('load', () => {
-    let imageUrl =
+    let radialGradient =
         'radial-gradient(circle at center, #302b63, #24243e, #0f0c29)';
     let body = document.getElementsByTagName('body')[0];
+    let requestUrl = backgroundUrl();
 
-    fetch(
-        'https://localhost:8443/bg?searchterm=abstract&orientation=landscape&size=regular'
-    )
+    fetch(requestUrl)
         .then((response) => {
             if (response.status !== 200) {
                 return response.status;
@@ -37,12 +37,12 @@ window.addEventListener('load', () => {
                 profile_url.appendChild(username);
                 credit.appendChild(profile_url);
             } else {
-                body.style.backgroundImage = imageUrl;
+                body.style.backgroundImage = radialGradient;
             }
             new Phaser.Game(GameConfig);
         })
         .catch((err) => {
-            body.style.backgroundImage = imageUrl;
+            body.style.backgroundImage = radialGradient;
             new Phaser.Game(GameConfig);
             throw err;
         });
