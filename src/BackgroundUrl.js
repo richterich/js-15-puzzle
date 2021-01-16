@@ -5,7 +5,7 @@
  */
 import backgroundParams from './BackgroundParams';
 
-const API_PATH = 'http://localhost:8443/bg'; // path to background fetch api
+const API_PATH = window.location.origin + '/bg'; // path to background fetch api
 
 /**
  * @function backgroundUrl - ...
