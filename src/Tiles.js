@@ -24,19 +24,22 @@ const TILE_NAMES = [
 const alignConfig = {
     width: 4,
     height: 4,
-    cellWidth: 90,
-    cellHeight: 90,
-    x: 280,
-    y: 200,
+    cellWidth: 112.5,
+    cellHeight: 112.5,
+    x: 231.25,
+    y: 131.25,
 };
 
 import Phaser from 'phaser';
 import Tile from './Tile';
+
+const events = Phaser.Input.Events;
+
 /**
  * @class Tiles
  */
 class Tiles extends Phaser.GameObjects.Group {
-    constructor(scene, combination) {
+    constructor(scene, combination, scoreboard) {
         super(scene, {
             classType: Tile,
             key: ATLAS_NAME,
@@ -44,6 +47,7 @@ class Tiles extends Phaser.GameObjects.Group {
             gridAlign: alignConfig,
         });
         this.combination = combination;
+        this.scoreboard = scoreboard;
     }
 
     randomCombination() {
@@ -80,8 +84,7 @@ class Tiles extends Phaser.GameObjects.Group {
 
     setUpInputListener() {
         const setUpInputHandlers = (tile) => {
-            tile.setInteractive();
-            tile.on('pointerdown', (pointer) => {
+            tile.on(events.POINTER_DOWN, (pointer) => {
                 let emptyIndex = this.combination.emptyIndex();
                 let emptyPosition = this.combination.gridPosition(emptyIndex);
                 let blank = new Phaser.Math.Vector2(emptyPosition);
@@ -94,19 +97,24 @@ class Tiles extends Phaser.GameObjects.Group {
                 let hitIndex = this.combination.arrayIndex(hit);
                 let direction = blank.subtract(hit);
                 if (direction.equals(Phaser.Math.Vector2.LEFT)) {
+                    this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
                     tile.moveLeft();
                 } else if (direction.equals(Phaser.Math.Vector2.DOWN)) {
+                    this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
                     tile.moveDown();
                 } else if (direction.equals(Phaser.Math.Vector2.RIGHT)) {
+                    this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
                     tile.moveRight();
                 } else if (direction.equals(Phaser.Math.Vector2.UP)) {
+                    this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
                     tile.moveUp();
                 }
             });
+            tile.setInteractive();
         };
         this.children.iterate(setUpInputHandlers);
     }

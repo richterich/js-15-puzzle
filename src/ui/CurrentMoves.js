@@ -6,28 +6,28 @@
 import Phaser from 'phaser';
 
 /**
- * @class Tile
+ * @class CurrentMoves - ...
  */
-class Tile extends Phaser.GameObjects.Sprite {
+class CurrentMoves extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
+        this.amount = 0;
     }
 
-    moveRight() {
-        this.x += 112.5;
+    createCurrentMoves() {
+        this.scene.add.existing(this);
     }
 
-    moveLeft() {
-        this.x -= 112.5;
+    increase() {
+        this.amount++;
     }
 
-    moveUp() {
-        this.y -= 112.5;
+    reset() {
+        this.amount = 0;
     }
 
-    moveDown() {
-        this.y += 112.5;
+    updateMoves() {
     }
 }
 
-export default Tile;
+export default CurrentMoves;

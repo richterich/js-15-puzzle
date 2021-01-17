@@ -6,28 +6,24 @@
 import Phaser from 'phaser';
 
 /**
- * @class Tile
+ * @class BestMoves - ...
  */
-class Tile extends Phaser.GameObjects.Sprite {
+class BestMoves extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
+        this.amount = 0;
     }
 
-    moveRight() {
-        this.x += 112.5;
+    createBestMoves() {
+        this.scene.add.existing(this);
     }
 
-    moveLeft() {
-        this.x -= 112.5;
+    replace(amount) {
+        this.amount = amount;
     }
 
-    moveUp() {
-        this.y -= 112.5;
-    }
-
-    moveDown() {
-        this.y += 112.5;
+    updateMoves() {
     }
 }
 
-export default Tile;
+export default BestMoves;
