@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
                 let username = document.createElement('strong');
                 username.innerText = '@' + backgroundMeta.username;
                 let credit = document.getElementById('credit');
-                credit.textContent = 'background photo by ';
+                credit.textContent = 'Photo by ';
                 profile_url.appendChild(username);
                 credit.appendChild(profile_url);
             } else {
