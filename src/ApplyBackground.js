@@ -6,8 +6,6 @@
 import backgroundUrl from './BackgroundUrl';
 
 function applyBackground() {
-    let radialGradient =
-        'radial-gradient(circle at center, #302b63, #24243e, #0f0c29)';
     let body = document.getElementsByTagName('body')[0];
     let requestUrl = backgroundUrl();
     return fetch(requestUrl)
@@ -33,13 +31,10 @@ function applyBackground() {
                 credit.textContent = 'Photo by ';
                 profile_url.appendChild(username);
                 credit.appendChild(profile_url);
-            } else {
-                body.style.backgroundImage = radialGradient;
             }
             return backgroundMeta;
         })
         .catch((err) => {
-            body.style.backgroundImage = radialGradient;
             throw err;
         });
 }
