@@ -118,6 +118,18 @@ class Tiles extends Phaser.GameObjects.Group {
         };
         this.children.iterate(setUpInputHandlers);
     }
+
+    animateCombination() {
+        this.scene.tweens.add({
+            targets: [...this.children.entries],
+            alpha: { from: 0, to: 1 },
+            duration: 1200,
+        });
+    }
+
+    isPutTogether() {
+        return 0 === this.combination.inversions();
+    }
 }
 
 export default Tiles;

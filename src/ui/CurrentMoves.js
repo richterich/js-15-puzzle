@@ -43,6 +43,10 @@ class CurrentMoves extends Phaser.GameObjects.Sprite {
     updateMoves() {
         this.currentMoves.text = this.amount;
     }
+
+    animateCurrentMoves() {
+        console.log(`Congrats! Your moves is ${this.amount}`);
+    }
 }
 
 export default CurrentMoves;

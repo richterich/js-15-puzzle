@@ -47,6 +47,20 @@ class Scoreboard extends Phaser.GameObjects.Container {
     increaseAmountOfMoves() {
         this.currentMoves.increase();
     }
+
+    resetCurrentMoves() {
+        this.currentMoves.reset();
+    }
+
+    newRecord() {
+        let best = this.bestMoves.amount;
+        let current = this.currentMoves.amount;
+        return best > current;
+    }
+
+    congratulate() {
+        this.currentMoves.animateCurrentMoves();
+    }
 }
 
 export default Scoreboard;
