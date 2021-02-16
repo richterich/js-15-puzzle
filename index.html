@@ -6,8 +6,6 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
         />
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
         <title>Fifteen Puzzle Game</title>
         <style>
             * {
@@ -16,40 +14,27 @@
             }
             html,
             body {
-                font-family: 'Montserrat', sans-serif;
+                font-family: 'FreeSans', sans-serif;
                 font-size: 100%;
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-image: radial-gradient(circle at center, #302b63, #24243e, #0f0c29);
                 color: #2c2c2e;
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
-            canvas {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
             }
             #game-area {
-                flex: 1;
+                position: fixed;
             }
             #footer {
-                margin: 1.5rem auto;
-                font-size: 0.6rem;
+                position: absolute;
+                z-index: 3;
+                left:50%;
+                bottom: 16px;
+                font-size: 0.875rem;
+                margin-left: -88px;
                 text-align: center;
             }
             #credit_container {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: flex-end;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 14px;
-                line-height: 16px;
-                margin: 10px 0;
+                position: absolute;
+                margin: 1.25rem auto;
+                z-index: 2;
+                right: 0px;
             }
         </style>
     </head>
