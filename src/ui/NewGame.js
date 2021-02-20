@@ -13,10 +13,18 @@ const events = Phaser.Input.Events;
 class NewGame extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
+        this.label = undefined;
     }
 
     createNewGame() {
         this.scene.add.existing(this);
+        this.setOrigin(0, 0);
+        this.label = this.scene.add.text(68, 216, 'New Game', {
+            fontFamily: 'FreeSans',
+            fontSize: '22px',
+            fontStyle: 'bold'
+        });
+        this.label.setColor('#ffffff');
     }
 
     setUpInputListener() {

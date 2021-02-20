@@ -14,19 +14,19 @@ class Tile extends Phaser.GameObjects.Sprite {
     }
 
     moveRight() {
-        this.x += 112.5;
+        this.x += 159;
     }
 
     moveLeft() {
-        this.x -= 112.5;
+        this.x -= 159;
     }
 
     moveUp() {
-        this.y -= 112.5;
+        this.y -= 159;
     }
 
     moveDown() {
-        this.y += 112.5;
+        this.y += 159;
     }
 }
 

@@ -24,10 +24,10 @@ const TILE_NAMES = [
 const alignConfig = {
     width: 4,
     height: 4,
-    cellWidth: 112.5,
-    cellHeight: 112.5,
-    x: 231.25,
-    y: 131.25,
+    cellWidth: 159,
+    cellHeight: 159,
+    x: 52,
+    y: 332,
 };
 
 import Phaser from 'phaser';

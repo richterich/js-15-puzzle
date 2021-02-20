@@ -20,10 +20,9 @@ class Scoreboard extends Phaser.GameObjects.Container {
     }
 
     createBoard() {
-        this.scene.add.image(this.x, this.y, 'panelFrame');
-        this.currentMoves = new CurrentMoves(this.scene, 455, this.y, 'moves');
-        this.bestMoves = new BestMoves(this.scene, 565, this.y, 'moves');
-        this.newGame = new NewGame(this.scene, 235, this.y+10, 'outNewGame');
+        this.currentMoves = new CurrentMoves(this.scene, 386, 172, 'moves');
+        this.bestMoves = new BestMoves(this.scene, 542, 172, 'moves');
+        this.newGame = new NewGame(this.scene, 32, 186, 'outNewGame');
         this.currentMoves.createCurrentMoves();
         this.bestMoves.createBestMoves();
         this.newGame.createNewGame();
@@ -36,8 +35,8 @@ class Scoreboard extends Phaser.GameObjects.Container {
     }
 
     updateBestScore() {
-        let best = this.bestMoves.amount;
-        let current = this.currentMoves.amount;
+        const best = this.bestMoves.amount;
+        const current = this.currentMoves.amount;
         if (best === 0 || best > current) {
             this.bestMoves.replace(current);
         }
@@ -53,8 +52,8 @@ class Scoreboard extends Phaser.GameObjects.Container {
     }
 
     newRecord() {
-        let best = this.bestMoves.amount;
-        let current = this.currentMoves.amount;
+        const best = this.bestMoves.amount;
+        const current = this.currentMoves.amount;
         return best > current;
     }
 

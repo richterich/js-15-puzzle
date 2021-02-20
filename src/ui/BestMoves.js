@@ -18,18 +18,20 @@ class BestMoves extends Phaser.GameObjects.Sprite {
 
     createBestMoves() {
         this.scene.add.existing(this);
-        this.label = this.scene.add.text(this.x, this.y - 15, 'Best:', {
-            fontFamily: '"Montserrat"',
-            fontSize: '12px',
+        this.setOrigin(0, 0);
+        this.label = this.scene.add.text(595, 186, 'BEST', {
+            fontFamily: 'FreeSans',
+            fontSize: '16px',
+            fontStyle: 'bold'
         });
-        this.label.setOrigin(0.5, 0.5);
-        this.label.setColor('#2c2c2e');
-        this.bestMoves = this.scene.add.text(this.x, this.y + 8, '', {
-            fontFamily: '"Montserrat"',
-            fontSize: '30px',
+        this.label.setColor('#a2f7fc');
+        this.bestMoves = this.scene.add.text(615, 236, '', {
+            fontFamily: 'FreeSans',
+            fontSize: '60px',
+            fontStyle: 'bold'
         });
         this.bestMoves.setOrigin(0.5, 0.5);
-        this.bestMoves.setColor('#2c2c2e');
+        this.bestMoves.setColor('#ffffff');
     }
 
     replace(amount) {

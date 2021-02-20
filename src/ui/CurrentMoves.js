@@ -18,17 +18,19 @@ class CurrentMoves extends Phaser.GameObjects.Sprite {
 
     createCurrentMoves() {
         this.scene.add.existing(this);
-        this.label = this.scene.add.text(this.x, this.y - 15, 'Current:', {
-            fontFamily: '"Montserrat"',
-            fontSize: '12px',
+        this.setOrigin(0, 0);
+        this.label = this.scene.add.text(423, 186, 'CURRENT', {
+            fontFamily: 'FreeSans',
+            fontSize: '16px',
+            fontStyle: 'bold'
         });
-        this.label.setColor('#2C2C2E');
-        this.label.setOrigin(0.5, 0.5);
-        this.currentMoves = this.scene.add.text(this.x, this.y + 8, '', {
-            fontFamily: '"Montserrat"',
-            fontSize: '30px',
+        this.label.setColor('#a2f7fc');
+        this.currentMoves = this.scene.add.text(460, 236, '', {
+            fontFamily: 'FreeSans',
+            fontSize: '60px',
+            fontStyle: 'bold'
         });
-        this.currentMoves.setColor('#2c2c2e');
+        this.currentMoves.setColor('#ffffff');
         this.currentMoves.setOrigin(0.5, 0.5);
     }
 
