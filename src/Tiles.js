@@ -84,16 +84,13 @@ class Tiles extends Phaser.GameObjects.Group {
 
     setUpInputListener() {
         const setUpInputHandlers = (tile) => {
-            tile.on(events.POINTER_DOWN, (pointer) => {
+            tile.on(events.POINTER_DOWN, () => {
                 let emptyIndex = this.combination.emptyIndex();
                 let emptyPosition = this.combination.gridPosition(emptyIndex);
                 let blank = new Phaser.Math.Vector2(emptyPosition);
-                let hit = pointer.position.subtract({
-                    x: alignConfig.x,
-                    y: alignConfig.y,
-                });
-                hit.x = Math.round(Math.abs(hit.x) / alignConfig.cellWidth);
-                hit.y = Math.round(Math.abs(hit.y) / alignConfig.cellHeight);
+                let hit = { x: 0, y: 0 };
+                hit.x = (tile.x - alignConfig.x) / alignConfig.cellWidth;
+                hit.y = (tile.y - alignConfig.y) / alignConfig.cellHeight;
                 let hitIndex = this.combination.arrayIndex(hit);
                 let direction = blank.subtract(hit);
                 if (direction.equals(Phaser.Math.Vector2.LEFT)) {
