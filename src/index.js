@@ -3,6 +3,7 @@
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
+import '../styles/main.css';
 import Phaser from 'phaser';
 import GameConfig from './GameConfig';
 
