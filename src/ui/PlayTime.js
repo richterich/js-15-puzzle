@@ -55,8 +55,8 @@ class PlayTime {
     }
 
     updateTime() {
-        const seconds = (this.time % 60).toFixed(0);
-        const minutes = (this.time / 60).toFixed(0);
+        const seconds = this.time % 60;
+        const minutes = Math.floor(this.time / 60);
         const currentSeconds = seconds >= 60 ? '00' : seconds.toString().padStart(2, '0');
         const currentMinutes = minutes >= 99 ? '99' : minutes.toString().padStart(2, '0');
         this.label.text = `${currentMinutes}:${currentSeconds}`;
