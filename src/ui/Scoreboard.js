@@ -7,6 +7,7 @@ import Phaser from 'phaser';
 import NewGame from './NewGame';
 import CurrentMoves from './CurrentMoves';
 import BestMoves from './BestMoves';
+import PlayTime from './PlayTime';
 
 /**
  * @class Scoreboard - ...
@@ -17,21 +18,25 @@ class Scoreboard extends Phaser.GameObjects.Container {
         this.newGame = undefined;
         this.currentMoves = undefined;
         this.bestMoves = undefined;
+        this.playTime = undefined;
     }
 
     createBoard() {
         this.currentMoves = new CurrentMoves(this.scene, 386, 172, 'moves');
         this.bestMoves = new BestMoves(this.scene, 542, 172, 'moves');
         this.newGame = new NewGame(this.scene, 32, 186, 'outNewGame');
+        this.playTime = new PlayTime(this.scene, 32, 60);
         this.currentMoves.createCurrentMoves();
         this.bestMoves.createBestMoves();
         this.newGame.createNewGame();
         this.newGame.setUpInputListener();
+        this.playTime.createPlayTime();
     }
 
     updateBoard() {
         this.currentMoves.updateMoves();
         this.bestMoves.updateMoves();
+        this.playTime.updateTime();
     }
 
     updateBestScore() {
@@ -41,6 +46,20 @@ class Scoreboard extends Phaser.GameObjects.Container {
             this.bestMoves.replace(current);
         }
         this.currentMoves.reset();
+    }
+
+    stopPlayTime() {
+        this.playTime.stopTime();
+    }
+
+    countPlayTime() {
+        this.playTime.resetTime();
+        this.playTime.startTime();
+    }
+
+    resetPlayTime() {
+        this.playTime.stopTime();
+        this.playTime.resetTime();
     }
 
     increaseAmountOfMoves() {

@@ -48,6 +48,7 @@ class Tiles extends Phaser.GameObjects.Group {
         });
         this.combination = combination;
         this.scoreboard = scoreboard;
+        this.firstMoveWasDone = false;
     }
 
     randomCombination() {
@@ -58,6 +59,7 @@ class Tiles extends Phaser.GameObjects.Group {
         }
         this.updateFrames(this.combination.values);
         this.updatePositions(this.combination.values);
+        this.firstMoveWasDone = false;
     }
 
     updateFrames(values) {
@@ -85,6 +87,10 @@ class Tiles extends Phaser.GameObjects.Group {
     setUpInputListener() {
         const setUpInputHandlers = (tile) => {
             tile.on(events.POINTER_DOWN, () => {
+                if (!this.firstMoveWasDone) {
+                    this.firstMoveWasDone = true;
+                    this.scoreboard.countPlayTime();
+                }
                 let emptyIndex = this.combination.emptyIndex();
                 let emptyPosition = this.combination.gridPosition(emptyIndex);
                 let blank = new Phaser.Math.Vector2(emptyPosition);

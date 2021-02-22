@@ -50,12 +50,14 @@ class PuzzleGame extends Phaser.Scene {
     newGame() {
         this.refreshPuzzle();
         this.scoreboard.resetCurrentMoves();
+        this.scoreboard.resetPlayTime();
     }
 
     update(time, delta) {
         super.update(time, delta);
         this.scoreboard.updateBoard();
         if (this.tiles.isPutTogether()) {
+            this.scoreboard.stopPlayTime();
             if (this.scoreboard.newRecord()) {
                 this.scoreboard.congratulate();
             }
