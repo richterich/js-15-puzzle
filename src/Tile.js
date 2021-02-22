@@ -28,6 +28,19 @@ class Tile extends Phaser.GameObjects.Sprite {
     moveDown() {
         this.y += 159;
     }
+
+    animate() {
+        this.scene.tweens.add({
+            targets: this,
+            scaleX: 0.1,
+            scaleY: 0.1,
+            ease: 'Sine.easeIn',
+            duration: 150,
+            delay: 0,
+            repeat: 0,
+            yoyo: true
+        });
+    }
 }
 
 export default Tile;

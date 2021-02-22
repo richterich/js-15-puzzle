@@ -26,8 +26,8 @@ const alignConfig = {
     height: 4,
     cellWidth: 159,
     cellHeight: 159,
-    x: 52,
-    y: 332,
+    x: 121.5,
+    y: 401.5,
 };
 
 import Phaser from 'phaser';
@@ -103,18 +103,22 @@ class Tiles extends Phaser.GameObjects.Group {
                     this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
                     tile.moveLeft();
+                    tile.animate();
                 } else if (direction.equals(Phaser.Math.Vector2.DOWN)) {
                     this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
                     tile.moveDown();
+                    tile.animate();
                 } else if (direction.equals(Phaser.Math.Vector2.RIGHT)) {
                     this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
                     tile.moveRight();
+                    tile.animate();
                 } else if (direction.equals(Phaser.Math.Vector2.UP)) {
                     this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
                     tile.moveUp();
+                    tile.animate();
                 }
             });
             tile.setInteractive();
