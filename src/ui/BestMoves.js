@@ -4,6 +4,7 @@
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
 import Phaser from 'phaser';
+import { ScoreStorage } from '../storage/ScoreStorage';
 
 /**
  * @class BestMoves - ...
@@ -14,6 +15,7 @@ class BestMoves extends Phaser.GameObjects.Sprite {
         this.amount = 0;
         this.label = undefined;
         this.bestMoves = undefined;
+        this.scoreStorage = new ScoreStorage();
     }
 
     createBestMoves() {
@@ -32,10 +34,12 @@ class BestMoves extends Phaser.GameObjects.Sprite {
         });
         this.bestMoves.setOrigin(0.5, 0.5);
         this.bestMoves.setColor('#ffffff');
+        this.amount = this.scoreStorage.bestScore();
     }
 
     replace(amount) {
         this.amount = amount;
+        this.scoreStorage.updateScore(amount);
     }
 
     updateMoves() {
