@@ -127,11 +127,20 @@ class Tiles extends Phaser.GameObjects.Group {
     }
 
     animateCombination() {
-        this.scene.tweens.add({
-            targets: [...this.children.entries],
-            alpha: { from: 0, to: 1 },
-            duration: 1200,
-        });
+        let i = 0;
+        const animation = (tile) => {
+            this.scene.tweens.add({
+                targets: tile,
+                scale: { from: 0.2, to: 1 },
+                duration: 150,
+                delay: i * 20,
+            });
+            i++;
+            if (0 === i % 4) {
+                i = 0;
+            }
+        };
+        this.children.iterate(animation);
     }
 
     isPutTogether() {
