@@ -32,9 +32,7 @@ class Tile extends Phaser.GameObjects.Sprite {
     animate() {
         this.scene.tweens.add({
             targets: this,
-            scaleX: { from: 0.2, to: 1 },
-            scaleY: { from: 0.2, to: 1 },
-            ease: 'Sine.easeIn',
+            scale: { from: 0.2, to: 1 },
             duration: 150
         });
     }
