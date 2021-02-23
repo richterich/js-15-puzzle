@@ -47,7 +47,12 @@ class CurrentMoves extends Phaser.GameObjects.Sprite {
     }
 
     animateCurrentMoves() {
-        console.log(`Congrats! Your moves is ${this.amount}`);
+        this.scene.tweens.add({
+            targets: this.currentMoves,
+            scale: { from: 0.1, to: 1 },
+            duration: 150,
+            delay: 50
+        });
     }
 }
 

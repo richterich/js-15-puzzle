@@ -45,6 +45,14 @@ class BestMoves extends Phaser.GameObjects.Sprite {
     updateMoves() {
         this.bestMoves.text = this.amount;
     }
+
+    animateBestMoves() {
+        this.scene.tweens.add({
+            targets: this.bestMoves,
+            scale: { from: 0.1, to: 1 },
+            duration: 150
+        });
+    }
 }
 
 export default BestMoves;

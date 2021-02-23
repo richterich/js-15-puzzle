@@ -44,6 +44,7 @@ class Scoreboard extends Phaser.GameObjects.Container {
         const current = this.currentMoves.amount;
         if (best === 0 || best > current) {
             this.bestMoves.replace(current);
+            this.bestMoves.animateBestMoves();
         }
         this.currentMoves.reset();
     }
