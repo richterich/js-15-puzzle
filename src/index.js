@@ -9,6 +9,12 @@ import GameConfig from './GameConfig';
 
 window.addEventListener('load', () => {
     bootGame();
+    const repoStars = document.getElementById('repo-stars');
+    setInterval(() => {
+        repoStars.classList.remove('rate');
+        void repoStars.offsetWidth;
+        repoStars.classList.add('rate');
+    }, 90000);
 });
 
 function bootGame() {
