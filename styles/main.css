@@ -16,8 +16,8 @@ body {
     z-index: 3;
     left: 50%;
     bottom: 16px;
-    font-size: 0.875rem;
-    margin-left: -88px;
+    font-size: 0.65rem;
+    margin-left: -70px;
     text-align: center;
 }
 #repo-stars {
