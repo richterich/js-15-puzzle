@@ -102,22 +102,22 @@ class Tiles extends Phaser.GameObjects.Group {
                 if (direction.equals(Phaser.Math.Vector2.LEFT)) {
                     this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
-                    tile.moveLeft();
+                    tile.moveLeft(alignConfig.cellWidth);
                     tile.animate();
                 } else if (direction.equals(Phaser.Math.Vector2.DOWN)) {
                     this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
-                    tile.moveDown();
+                    tile.moveDown(alignConfig.cellHeight);
                     tile.animate();
                 } else if (direction.equals(Phaser.Math.Vector2.RIGHT)) {
                     this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
-                    tile.moveRight();
+                    tile.moveRight(alignConfig.cellWidth);
                     tile.animate();
                 } else if (direction.equals(Phaser.Math.Vector2.UP)) {
                     this.scoreboard.increaseAmountOfMoves();
                     this.combination.swapTiles(hitIndex, emptyIndex);
-                    tile.moveUp();
+                    tile.moveUp(alignConfig.cellHeight);
                     tile.animate();
                 }
             });
@@ -127,18 +127,14 @@ class Tiles extends Phaser.GameObjects.Group {
     }
 
     animateCombination() {
-        let i = 0;
         const animation = (tile) => {
+            const delay = Math.round((tile.y - alignConfig.y) / alignConfig.cellHeight);
             this.scene.tweens.add({
                 targets: tile,
                 scale: { from: 0.2, to: 1 },
                 duration: 150,
-                delay: i * 20,
+                delay: delay * 30,
             });
-            i++;
-            if (0 === i % 4) {
-                i = 0;
-            }
         };
         this.children.iterate(animation);
     }
