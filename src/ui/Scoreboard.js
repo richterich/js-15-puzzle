@@ -40,13 +40,9 @@ class Scoreboard extends Phaser.GameObjects.Container {
     }
 
     updateBestScore() {
-        const best = this.bestMoves.amount;
         const current = this.currentMoves.amount;
-        if (best === 0 || best > current) {
-            this.bestMoves.replace(current);
-            this.bestMoves.animateBestMoves();
-        }
-        this.currentMoves.reset();
+        this.bestMoves.replace(current);
+        this.bestMoves.animateBestMoves();
     }
 
     stopPlayTime() {
@@ -69,16 +65,13 @@ class Scoreboard extends Phaser.GameObjects.Container {
 
     resetCurrentMoves() {
         this.currentMoves.reset();
+        this.currentMoves.animateCurrentMoves();
     }
 
-    newRecord() {
+    get isNewRecord() {
         const best = this.bestMoves.amount;
         const current = this.currentMoves.amount;
         return best > current;
-    }
-
-    congratulate() {
-        this.currentMoves.animateCurrentMoves();
     }
 }
 

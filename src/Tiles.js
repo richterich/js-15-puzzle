@@ -121,9 +121,12 @@ class Tiles extends Phaser.GameObjects.Group {
                     tile.animate();
                 }
             });
+        };
+        const setInteractive = (tile) => {
             tile.setInteractive();
         };
         this.children.iterate(setUpInputHandlers);
+        this.children.iterate(setInteractive);
     }
 
     animateCombination() {
@@ -139,7 +142,7 @@ class Tiles extends Phaser.GameObjects.Group {
         this.children.iterate(animation);
     }
 
-    isPutTogether() {
+    get isPutTogether() {
         return 0 === this.combination.inversions();
     }
 }
