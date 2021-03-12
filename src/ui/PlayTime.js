@@ -61,6 +61,13 @@ class PlayTime {
         const currentMinutes = minutes >= 99 ? '99' : minutes.toString().padStart(2, '0');
         this.label.text = `${currentMinutes}:${currentSeconds}`;
     }
+
+    get onPause() {
+        if (undefined === this.timer) {
+            return true;
+        }
+        return this.timer.paused;
+    }
 }
 
 export default PlayTime;

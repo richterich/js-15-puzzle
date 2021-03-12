@@ -7,6 +7,7 @@ import Phaser from 'phaser';
 import Combination from './Combination';
 import Tiles from './Tiles';
 import Scoreboard from './ui/Scoreboard';
+import Congratulation from './ui/Congratulation';
 
 class PuzzleGame extends Phaser.Scene {
     constructor() {
@@ -14,6 +15,7 @@ class PuzzleGame extends Phaser.Scene {
         this.GAME_WIDTH = 720;
         this.GAME_HEIGHT = 1280;
         this.tiles = undefined;
+        this.congratulation = undefined;
         this.combination = undefined;
         this.frame = undefined;
         this.parent = undefined;
@@ -42,8 +44,10 @@ class PuzzleGame extends Phaser.Scene {
         this.frame = this.add.image(32, 312, 'boardFrame').setOrigin(0, 0);
         this.scoreboard = new Scoreboard(this, 0, 0);
         this.tiles = new Tiles(this, new Combination(), this.scoreboard);
+        this.congratulation = new Congratulation(this, this.GAME_WIDTH / 2, this.GAME_HEIGHT / 2, 'congratulation');
         this.scoreboard.createBoard();
         this.tiles.setUpInputListener();
+        this.congratulation.createCongratulation();
         this.refreshPuzzle();
     }
 
@@ -56,13 +60,17 @@ class PuzzleGame extends Phaser.Scene {
     update(time, delta) {
         super.update(time, delta);
         this.scoreboard.updateBoard();
-        if (this.tiles.isPutTogether) {
+        if (this.scoreboard.isPlayTime && this.tiles.isPutTogether) {
             this.scoreboard.stopPlayTime();
             if (this.scoreboard.isNewRecord) {
                 this.scoreboard.updateBestScore();
             }
             this.scoreboard.resetCurrentMoves();
-            this.refreshPuzzle();
+            this.congratulation.show();
+            this.congratulation.congratulate(() => {
+                this.congratulation.hide();
+                this.refreshPuzzle();
+            });
         }
     }
 

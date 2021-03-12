@@ -73,6 +73,10 @@ class Scoreboard extends Phaser.GameObjects.Container {
         const current = this.currentMoves.amount;
         return best > current;
     }
+
+    get isPlayTime() {
+        return !this.playTime.onPause;
+    }
 }
 
 export default Scoreboard;

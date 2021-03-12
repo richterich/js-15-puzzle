@@ -10,6 +10,7 @@ import buttonOverTexture from './assets/images/button-over.png';
 import buttonOutTexture from './assets/images/button-out.png';
 import buttonDownTexture from './assets/images/button-down.png';
 import boardFrameTexture from './assets/images/board.png';
+import congratulationTexture from './assets/images/congratulation.png';
 import movesTexture from './assets/images/moves.png';
 import tilesTexture from './assets/atlases/tiles.png';
 import tilesAtlasData from './assets/atlases/tiles.json';
@@ -25,6 +26,7 @@ class BootGame extends Phaser.Scene {
         this.load.image('outNewGame', buttonOutTexture);
         this.load.image('downNewGame', buttonDownTexture);
         this.load.image('boardFrame', boardFrameTexture);
+        this.load.image('congratulation', congratulationTexture);
         this.load.image('moves', movesTexture);
         this.load.atlas('tiles', tilesTexture, tilesAtlasData);
     }
