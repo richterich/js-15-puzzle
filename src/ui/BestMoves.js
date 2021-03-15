@@ -34,7 +34,7 @@ class BestMoves extends Phaser.GameObjects.Sprite {
         });
         this.bestMoves.setOrigin(0.5, 0.5);
         this.bestMoves.setColor('#ffffff');
-        this.amount = this.scoreStorage.bestScore();
+        this.amount = this.scoreStorage.bestScore;
     }
 
     replace(amount) {

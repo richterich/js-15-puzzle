@@ -16,7 +16,7 @@ class ScoreStorage {
         localStorage.removeItem(BEST);
     }
 
-    bestScore() {
+    get bestScore() {
         const score = localStorage.getItem(BEST);
         if (null === score) {
             return 0;

@@ -71,7 +71,7 @@ class Scoreboard extends Phaser.GameObjects.Container {
     get isNewRecord() {
         const best = this.bestMoves.amount;
         const current = this.currentMoves.amount;
-        return best > current;
+        return best > current || best === 0;
     }
 
     get isPlayTime() {
