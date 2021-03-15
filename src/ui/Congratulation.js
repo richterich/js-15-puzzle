@@ -47,7 +47,7 @@ class Congratulation extends Phaser.GameObjects.Sprite {
                     targets: [this, this.label],
                     scale: { from: 1, to: 0 },
                     duration: 50,
-                    delay: 1500,
+                    delay: 2200,
                     onComplete: callback,
                 });
             },
