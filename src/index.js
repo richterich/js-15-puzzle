@@ -4,7 +4,6 @@
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
 import '../styles/main.css';
-import donateImage from '../img/paypal_logo.png';
 import Phaser from 'phaser';
 import GameConfig from './GameConfig';
 
@@ -15,9 +14,6 @@ window.addEventListener('load', () => {
 function bootGame() {
     new Phaser.Game(GameConfig);
 }
-
-const donate = document.getElementById('donate');
-donate.src = donateImage;
 
 const repoStars = document.getElementById('repo-stars');
 setInterval(() => {

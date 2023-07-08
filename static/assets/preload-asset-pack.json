@@ -1,0 +1,11 @@
+{
+  "section1": {
+    "files": [
+      {
+        "url": "assets/logo.png",
+        "type": "image",
+        "key": "logo"
+      }
+    ]
+  }
+}

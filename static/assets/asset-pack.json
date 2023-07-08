@@ -1,0 +1,42 @@
+{
+  "section1": {
+    "files": [
+      {
+        "url": "assets/button-over.png",
+        "type": "image",
+        "key": "overNewGame"
+      },
+      {
+        "url": "assets/button-out.png",
+        "type": "image",
+        "key": "outNewGame"
+      },
+      {
+        "url": "assets/button-down.png",
+        "type": "image",
+        "key": "downNewGame"
+      },
+      {
+        "url": "assets/board.png",
+        "type": "image",
+        "key": "boardFrame"
+      },
+      {
+        "url": "assets/congratulation.png",
+        "type": "image",
+        "key": "congratulation"
+      },
+      {
+        "url": "assets/moves.png",
+        "type": "image",
+        "key": "moves"
+      },
+      {
+        "url": "assets/tiles.json",
+        "type": "multiatlas",
+        "path": "assets",
+        "key": "tiles"
+      }
+    ]
+  }
+}

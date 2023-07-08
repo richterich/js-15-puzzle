@@ -6,6 +6,7 @@
 import Phaser from 'phaser';
 import PuzzleGame from './scenes/PuzzleGame';
 import BootGame from './scenes/BootGame';
+import PreloadAssets from './scenes/PreloadAssets';
 
 const GameConfig = {
     type: Phaser.CANVAS,
@@ -16,10 +17,10 @@ const GameConfig = {
         height: 960
     },
     pixelArt: false,
-    scene: [BootGame, PuzzleGame],
+    scene: [BootGame, PreloadAssets, PuzzleGame],
     title: 'Fifteen Puzzle',
     url: 'https://fifteen-puzzle.richterich.dev',
-    version: '0.1.0',
+    version: GAME_VERSION,
     banner: true,
     backgroundColor: '#f8edeb'
 };

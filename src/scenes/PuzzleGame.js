@@ -11,7 +11,7 @@ import Congratulation from '../ui/Congratulation';
 
 class PuzzleGame extends Phaser.Scene {
     constructor() {
-        super('puzzleGame');
+        super('game');
         this.GAME_WIDTH = 720;
         this.GAME_HEIGHT = 1280;
         this.tiles = undefined;
@@ -23,8 +23,7 @@ class PuzzleGame extends Phaser.Scene {
     }
 
     create() {
-        const width = this.scale.gameSize.width;
-        const height = this.scale.gameSize.height;
+        const {width, height }= this.scale.gameSize;
 
         this.parent = new Phaser.Structs.Size(width, height);
         this.sizer = new Phaser.Structs.Size(
