@@ -1,5 +1,5 @@
 /**
- * @author      Alexander Richterich <richterich@yahoo.com>
+ * @author      Alexander Richterich <alexander@richterich.dev>
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */

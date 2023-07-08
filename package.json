@@ -10,7 +10,7 @@
     "start": "webpack serve --config webpack/base.js --open 'google-chrome'",
     "test": "jest"
   },
-  "author": "Alexander Richterich <richterich@yahoo.com> (https://richterich.dev)",
+  "author": "Alexander Richterich <alexander@richterich.dev> (https://richterich.dev)",
   "license": "MIT",
   "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
   "homepage": "https://github.com/richterich/js-15-puzzle#readme",
