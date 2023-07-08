@@ -3,8 +3,9 @@
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
-import Phaser from 'phaser';
+import { Scene } from 'phaser';
 
+import WebFontUrl from '../assets/fonts/FreeSans.otf'
 import logoTexture from '../assets/images/logo.png';
 import buttonOverTexture from '../assets/images/button-over.png';
 import buttonOutTexture from '../assets/images/button-out.png';
@@ -15,12 +16,25 @@ import movesTexture from '../assets/images/moves.png';
 import tilesTexture from '../assets/atlases/tiles.png';
 import tilesAtlasData from '../assets/atlases/tiles.json';
 
-class BootGame extends Phaser.Scene {
-    constructor() {
+class BootGame extends Scene {
+    constructor () {
         super('bootGame');
     }
 
-    preload() {
+    init () {
+        // Inject CSS Font
+        const element = document.createElement('style')
+        document.head.appendChild(element)
+        const sheet = element.sheet
+        const styles = `@font-face { font-family: "FreeSans"; src: url("${WebFontUrl}") format("opentype"); }\n`
+        sheet.insertRule(styles, 0)
+    }
+
+    preload () {
+        this.load.script(
+            'webfont',
+            'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js'
+        )
         this.load.image('logo', logoTexture);
         this.load.image('overNewGame', buttonOverTexture);
         this.load.image('outNewGame', buttonOutTexture);
@@ -31,7 +45,7 @@ class BootGame extends Phaser.Scene {
         this.load.atlas('tiles', tilesTexture, tilesAtlasData);
     }
 
-    create() {
+    create () {
         const width = this.scale.gameSize.width;
         const height = this.scale.gameSize.height;
 
@@ -39,12 +53,12 @@ class BootGame extends Phaser.Scene {
 
         this.tweens.add({
             targets: logo,
-            alpha: {from: 0, to: 1},
+            alpha: { from: 0, to: 1 },
             duration: 500,
             onComplete: () => {
                 this.tweens.add({
                     targets: logo,
-                    alpha: {from: 1, to: 0},
+                    alpha: { from: 1, to: 0 },
                     duration: 500,
                     onComplete: () => {
                         this.loadGame();
@@ -54,7 +68,7 @@ class BootGame extends Phaser.Scene {
         });
     }
 
-    loadGame() {
+    loadGame () {
         this.scene.start('puzzleGame');
     }
 }

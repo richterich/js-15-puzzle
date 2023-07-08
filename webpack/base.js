@@ -17,6 +17,10 @@ module.exports = {
                 }
             },
             {
+                test: [/\.json/, /\.otf/],
+                type: 'asset/resource'
+            },
+            {
                 test: [/\.vert$/, /\.frag$/],
                 use: 'raw-loader'
             },
