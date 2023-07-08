@@ -4,10 +4,10 @@
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
 import Phaser from 'phaser';
-import Combination from './Combination';
-import Tiles from './Tiles';
-import Scoreboard from './ui/Scoreboard';
-import Congratulation from './ui/Congratulation';
+import Combination from '../Combination';
+import Tiles from '../Tiles';
+import Scoreboard from '../ui/Scoreboard';
+import Congratulation from '../ui/Congratulation';
 
 class PuzzleGame extends Phaser.Scene {
     constructor() {

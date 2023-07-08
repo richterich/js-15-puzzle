@@ -4,8 +4,8 @@
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
 import Phaser from 'phaser';
-import PuzzleGame from './PuzzleGame';
-import BootGame from './BootGame';
+import PuzzleGame from './scenes/PuzzleGame';
+import BootGame from './scenes/BootGame';
 
 const GameConfig = {
     type: Phaser.CANVAS,
