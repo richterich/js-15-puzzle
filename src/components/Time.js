@@ -1,0 +1,98 @@
+/**
+ * @author      Alexander Richterich <alexander@richterich.dev>
+ * @copyright   2020 Alexander Richterich
+ * @license     {@link https://opensource.org/licenses/MIT|MIT License}
+ */
+import { GameObjects, Tweens, Time } from 'phaser';
+import Component from './Component'
+
+class Time extends Component {
+  constructor (gameObject) {
+    super(gameObject)
+    this.gameObject = gameObject
+    gameObject.__Time = this
+  }
+
+  /** @returns {Time} */
+  static getComponent (gameObject) {
+    return gameObject.__Time
+  }
+
+  /** @type {GameObjects.Text} */
+  gameObject;
+  /** @type {number} */
+  delay = 0;
+  /** @type {number} */
+  tweenDuration = 0;
+  /** @type {string} */
+  onTileMoved = 'event-name';
+  /** @type {string} */
+  onPuzzleSolved = 'event-name';
+  /** @type {string} */
+  onNewGame = 'event-name';
+  /** @type {boolean} */
+  #wasNotMoved = false;
+  /** @type {Tweens.Tween} */
+  #pushTween;
+  /** @type {Time.TimerEvent} */
+  #timer;
+  /** @type {} */
+  #playTime;
+
+  #stopTime () {
+    this.#timer.paused = true;
+    this.#pushTween.play();
+  }
+
+  #startTime () {
+    if (this.#wasNotMoved) {
+      this.#timer.paused = false;
+      this.#wasNotMoved = false;
+    }
+  }
+
+  #resetTime () {
+    this.#timer.paused = true;
+    this.#wasNotMoved = true;
+    this.#playTime.reset();
+    this.gameObject.text = this.#playTime.timeString();
+    this.#pushTween.play();
+  }
+
+  #updateTime () {
+    this.#playTime.tick();
+    this.gameObject.text = this.#playTime.timeString();
+  }
+
+  awake () {
+    this.#timer = this.scene.time.addEvent({
+      delay: this.delay,
+      callback: this.#updateTime,
+      callbackScope: this,
+      loop: true,
+      paused: true
+    });
+    this.#pushTween = this.scene.tweens.add({
+      targets: this.gameObject,
+      scaleX: '*=0.8',
+      scaleY: '*=0.8',
+      duration: this.tweenDuration,
+      yoyo: true,
+      paused: true
+    });
+  }
+
+  start () {
+    this.scene.events.on(this.onTileMoved, this.#startTime, this);
+    this.scene.events.on(this.onPuzzleSolved, this.#stopTime, this);
+    this.scene.events.on(this.onNewGame, this.#resetTime, this);
+  }
+
+  destroy () {
+    this.scene.events.off(this.onTileMoved, this.#startTime, this);
+    this.scene.events.off(this.onPuzzleSolved, this.#stopTime, this);
+    this.scene.events.off(this.onNewGame, this.#resetTime, this);
+  }
+}
+
+export default Time;
