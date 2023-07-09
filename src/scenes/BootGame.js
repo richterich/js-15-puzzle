@@ -31,30 +31,13 @@ class BootGame extends Scene {
     }
 
     create () {
-        const { width, height } = this.scale.gameSize;
-        const logo = this.add.image(width / 2, height / 2, 'logo');
-
-        this.tweens.add({
-            targets: logo,
-            alpha: { from: 0, to: 1 },
-            duration: 500,
-            onComplete: () => {
-                WebFont.load({
-                    custom: {
-                        families: ['FreeSans']
-                    },
-                    active: () => {
-                        this.tweens.add({
-                            targets: logo,
-                            alpha: { from: 1, to: 0 },
-                            duration: 500,
-                            onComplete: () => {
-                                this.scene.start('preload');
-                            },
-                        });
-                    }
-                })
+        WebFont.load({
+            custom: {
+                families: ['FreeSans']
             },
+            active: () => {
+                this.scene.start('preload');
+            }
         });
     }
 }

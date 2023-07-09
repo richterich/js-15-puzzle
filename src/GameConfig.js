@@ -13,8 +13,8 @@ const GameConfig = {
     scale: {
         mode: Phaser.Scale.RESIZE,
         parent: 'game-area',
-        width: 640,
-        height: 960
+        width: 720,
+        height: 1280,
     },
     pixelArt: false,
     scene: [BootGame, PreloadAssets, PuzzleGame],

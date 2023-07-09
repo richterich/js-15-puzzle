@@ -4,59 +4,49 @@
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
 import Phaser from 'phaser';
+import CameraScale from '../components/CameraScale';
 import Combination from '../Combination';
 import Tiles from '../Tiles';
 import Scoreboard from '../ui/Scoreboard';
 import Congratulation from '../ui/Congratulation';
 
 class PuzzleGame extends Phaser.Scene {
-    constructor() {
+    constructor () {
         super('game');
-        this.GAME_WIDTH = 720;
-        this.GAME_HEIGHT = 1280;
         this.tiles = undefined;
         this.congratulation = undefined;
         this.combination = undefined;
         this.frame = undefined;
-        this.parent = undefined;
-        this.sizer = undefined;
     }
 
-    create() {
-        const {width, height }= this.scale.gameSize;
+    create () {
+        // layer
+        const layer = this.add.layer();
 
-        this.parent = new Phaser.Structs.Size(width, height);
-        this.sizer = new Phaser.Structs.Size(
-            this.GAME_WIDTH,
-            this.GAME_HEIGHT,
-            Phaser.Structs.Size.FIT,
-            this.parent
-        );
-
-        this.parent.setSize(width, height);
-        this.sizer.setSize(width, height);
-
-        this.updateCamera();
-
-        this.scale.on('resize', this.resize, this);
+        // cameraScale (component)
+        const cameraScale = new CameraScale(layer);
+        cameraScale.gameWidth = 720;
+        cameraScale.gameHeight = 1280;
 
         this.frame = this.add.image(32, 312, 'boardFrame').setOrigin(0, 0);
         this.scoreboard = new Scoreboard(this, 0, 0);
         this.tiles = new Tiles(this, new Combination(), this.scoreboard);
-        this.congratulation = new Congratulation(this, this.GAME_WIDTH / 2, this.GAME_HEIGHT / 2, 'congratulation');
+        this.congratulation = new Congratulation(this, 360, 640, 'congratulation');
         this.scoreboard.createBoard();
         this.tiles.setUpInputListener();
         this.congratulation.createCongratulation();
         this.refreshPuzzle();
+
+        this.events.emit('scene-awake');
     }
 
-    newGame() {
+    newGame () {
         this.refreshPuzzle();
         this.scoreboard.resetCurrentMoves();
         this.scoreboard.resetPlayTime();
     }
 
-    update(time, delta) {
+    update (time, delta) {
         super.update(time, delta);
         this.scoreboard.updateBoard();
         if (this.scoreboard.isPlayTime && this.tiles.isPutTogether) {
@@ -73,32 +63,9 @@ class PuzzleGame extends Phaser.Scene {
         }
     }
 
-    refreshPuzzle() {
+    refreshPuzzle () {
         this.tiles.animateCombination();
         this.tiles.randomCombination();
-    }
-
-    resize(gameSize) {
-        const width = gameSize.width;
-        const height = gameSize.height;
-
-        this.parent.setSize(width, height);
-        this.sizer.setSize(width, height);
-
-        this.updateCamera();
-    }
-
-    updateCamera() {
-        const camera = this.cameras.main;
-
-        const x = Math.ceil((this.parent.width - this.sizer.width) * 0.5);
-        const y = Math.ceil((this.parent.height - this.sizer.height) * 0.5);
-        const scaleX = this.sizer.width / this.GAME_WIDTH;
-        const scaleY = this.sizer.height / this.GAME_HEIGHT;
-
-        camera.setViewport(x, y, this.sizer.width, this.sizer.height);
-        camera.setZoom(Math.max(scaleX, scaleY));
-        camera.centerOn(this.GAME_WIDTH / 2, this.GAME_HEIGHT / 2);
     }
 }
 
