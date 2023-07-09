@@ -1,8 +1,13 @@
-import Phaser from 'phaser';
+/**
+ * @author      Alexander Richterich <alexander@richterich.dev>
+ * @copyright   2020 Alexander Richterich
+ * @license     {@link https://opensource.org/licenses/MIT|MIT License}
+ */
+import { Scenes, GameObjects, Scene } from 'phaser';
 
 class Component {
   /**
-   * @param {Phaser.GameObjects.GameObject} gameObject The entity.
+   * @param {GameObjects.GameObject} gameObject The entity.
    */
   constructor (gameObject) {
     this.scene = gameObject.scene;
@@ -17,15 +22,15 @@ class Component {
     }
 
     if (listenStart) {
-      this.scene.events.once(Phaser.Scenes.Events.UPDATE, this.start, this);
+      this.scene.events.once(Scenes.Events.UPDATE, this.start, this);
     }
 
     if (listenUpdate) {
-      this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
+      this.scene.events.on(Scenes.Events.UPDATE, this.update, this);
     }
 
     if (listenStart || listenUpdate || listenDestroy) {
-      gameObject.on(Phaser.GameObjects.Events.DESTROY, () => {
+      gameObject.on(GameObjects.Events.DESTROY, () => {
         this.scene.events.off(Scenes.Events.UPDATE, this.start, this);
         this.scene.events.off(Scenes.Events.UPDATE, this.update, this);
 
@@ -36,7 +41,7 @@ class Component {
     }
   }
 
-  /** @type {Phaser.Scene} */
+  /** @type {Scene} */
   scene;
 
   awake () {
