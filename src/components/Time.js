@@ -3,7 +3,7 @@
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
-import { GameObjects, Tweens } from 'phaser';
+import { GameObjects } from 'phaser';
 import Component from './Component'
 import PlayTime from '../plugins/PlayTime';
 
@@ -37,8 +37,6 @@ class Time extends Component {
   onNewGame = 'event-name';
   /** @type {boolean} */
   #wasNotMoved = false;
-  /** @type {Tweens.Tween} */
-  #pushTween;
   /** @type {Time.TimerEvent} */
   #timer;
   /** @type {PlayTime} */
@@ -46,7 +44,6 @@ class Time extends Component {
 
   #stopTime () {
     this.#timer.paused = true;
-    this.#pushTween.play();
   }
 
   #startTime () {
@@ -61,7 +58,6 @@ class Time extends Component {
     this.#wasNotMoved = true;
     this.#playtime.reset();
     this.gameObject.text = this.#playtime.timeString();
-    this.#pushTween.play();
   }
 
   #updateTime () {
@@ -75,14 +71,6 @@ class Time extends Component {
       callback: this.#updateTime,
       callbackScope: this,
       loop: true,
-      paused: true
-    });
-    this.#pushTween = this.scene.tweens.add({
-      targets: this.gameObject,
-      scaleX: '*=0.8',
-      scaleY: '*=0.8',
-      duration: this.tweenDuration,
-      yoyo: true,
       paused: true
     });
     this.#playtime = this.scene.playtime;
