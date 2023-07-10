@@ -10,16 +10,16 @@ class Tile extends GameObjects.Container {
     super(scene, x ?? 0, y ?? 0)
 
     // tile
-    const tile = scene.add.image(0, 0, 'tiles', 'tile')
+    const tile = scene.add.image(0, 0, 'tiles', 'tile1')
     this.add(tile)
 
     // number
     const number = scene.add.text(0, -8, '', {})
     number.setOrigin(0.5, 0.5)
-    number.text = '1'
+    // number.text = '1'
     number.setStyle({
       align: 'center',
-      color: '#6bb8fb',
+      color: '#774936',
       fontFamily: 'FreeSans',
       fontSize: '64px'
     })
@@ -39,14 +39,14 @@ class Tile extends GameObjects.Container {
   /** @type {GameObjects.BitmapText} */
   number
 
-  setTile (frameName, numberText, color = '#6bb8fb') {
+  setTile (frameName, numberText, color = '#774936') {
     this.name = frameName
     this.tile.setFrame(frameName)
     this.number.text = numberText
     this.number.setStyle({ color })
   }
 
-  updateFrame (frameName, color) {
+  updateFrame (frameName, color = '#774936') {
     this.name = frameName
     this.tile.setFrame(frameName)
     this.number.setStyle({ color })
