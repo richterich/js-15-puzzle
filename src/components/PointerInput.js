@@ -3,12 +3,17 @@
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
+import { Geom, Input, GameObjects } from 'phaser';
 import Component from './Component';
-import { Geom, Input, GameObjects } from '../phaser';
+import { Puzzle as PuzzlePlugin } from '../plugins/Puzzle';
 
 const { ceil } = Math;
 
 export default class PointerInput extends Component {
+  /**
+   * 
+   * @param {GameObjects.Container} gameObject 
+   */
   constructor (gameObject) {
     super(gameObject);
     this.gameObject = gameObject;
@@ -28,10 +33,8 @@ export default class PointerInput extends Component {
   gridHeight = 0;
   /** @type {string} */
   onTileMove = 'event-name';
-  /** @type {} */
-  #emptyIndex;
-  /** @type {} */
-  #gridPosition;
+  /** @type {PuzzlePlugin} */
+  #puzzle;
 
   #onPuzzleDown (_pointer, localX, localY, _event) {
     // Find hit position on the puzzle
@@ -40,8 +43,8 @@ export default class PointerInput extends Component {
     hitPosition.x = ceil(localX / (width / this.gridWidth));
     hitPosition.y = ceil(localY / (height / this.gridHeight));
     // Find gap in the combination
-    const gapIndex = this.#emptyIndex();
-    const gapPosition = this.#gridPosition(gapIndex);
+    const gapIndex = this.#puzzle.gapIndex();
+    const gapPosition = this.#puzzle.gridPosition(gapIndex);
     // Find move direction
     const direction = { x: 0, y: 0 };
     direction.x = gapPosition.x - hitPosition.x;
@@ -55,9 +58,7 @@ export default class PointerInput extends Component {
     const { width, height } = this.gameObject.getBounds();
     const hitArea = new Geom.Rectangle(0, 0, width, height);
     this.gameObject.setInteractive(hitArea, Geom.Rectangle.Contains);
-    // Cache the function references
-    this.#emptyIndex = this.scene.combination.emptyIndex;
-    this.#gridPosition = this.scene.combination.gridPosition;
+    this.#puzzle = this.scene.puzzle;
   }
 
   start () {
