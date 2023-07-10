@@ -57,6 +57,7 @@ class Moves extends Component {
       duration: this.tweenDuration,
       yoyo: true,
       paused: true,
+      persist: true,
     })
     this.#playmoves = this.scene.playmoves;
   }
