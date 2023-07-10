@@ -3,10 +3,15 @@
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
-import { GameObjects, Tweens, Time } from 'phaser';
+import { GameObjects, Tweens } from 'phaser';
 import Component from './Component'
+import PlayTime from '../plugins/PlayTime';
 
 class Time extends Component {
+  /**
+   * 
+   * @param {GameObjects.Text} gameObject
+   */
   constructor (gameObject) {
     super(gameObject)
     this.gameObject = gameObject
@@ -36,8 +41,8 @@ class Time extends Component {
   #pushTween;
   /** @type {Time.TimerEvent} */
   #timer;
-  /** @type {} */
-  #playTime;
+  /** @type {PlayTime} */
+  #playtime;
 
   #stopTime () {
     this.#timer.paused = true;
@@ -54,14 +59,14 @@ class Time extends Component {
   #resetTime () {
     this.#timer.paused = true;
     this.#wasNotMoved = true;
-    this.#playTime.reset();
-    this.gameObject.text = this.#playTime.timeString();
+    this.#playtime.reset();
+    this.gameObject.text = this.#playtime.timeString();
     this.#pushTween.play();
   }
 
   #updateTime () {
-    this.#playTime.tick();
-    this.gameObject.text = this.#playTime.timeString();
+    this.#playtime.tick();
+    this.gameObject.text = this.#playtime.timeString();
   }
 
   awake () {
@@ -80,6 +85,7 @@ class Time extends Component {
       yoyo: true,
       paused: true
     });
+    this.#playtime = this.scene.playtime;
   }
 
   start () {

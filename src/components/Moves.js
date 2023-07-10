@@ -5,6 +5,7 @@
  */
 import { GameObjects, Tweens } from 'phaser';
 import Component from './Component';
+import PlayMoves from '../plugins/PlayMoves';
 
 class Moves extends Component {
   constructor (gameObject) {
@@ -30,17 +31,17 @@ class Moves extends Component {
   onNewGame = 'event-name';
   /** @type {Tweens.Tween} */
   #pushTween;
-  /** @type {} */
-  #playMoves;
+  /** @type {PlayMoves} */
+  #playmoves;
 
   #updateMoves () {
-    this.#playMoves.increase();
-    this.gameObject.text = this.#playMoves.movesString();
+    this.#playmoves.increase();
+    this.gameObject.text = this.#playmoves.movesString();
   }
 
   #resetMoves () {
-    this.#playMoves.reset();
-    this.gameObject.text = this.#playMoves.movesString();
+    this.#playmoves.reset();
+    this.gameObject.text = this.#playmoves.movesString();
     this.#pushTween.play();
   }
 
@@ -53,6 +54,7 @@ class Moves extends Component {
       yoyo: true,
       paused: true,
     })
+    this.#playmoves = this.scene.playmoves;
   }
 
   start () {
