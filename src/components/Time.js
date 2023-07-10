@@ -36,7 +36,7 @@ class Time extends Component {
   /** @type {string} */
   onNewGame = 'event-name';
   /** @type {boolean} */
-  #wasNotMoved = false;
+  #wasNotMoved = true;
   /** @type {Time.TimerEvent} */
   #timer;
   /** @type {PlayTime} */
