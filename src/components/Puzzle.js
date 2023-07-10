@@ -3,10 +3,16 @@
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
-import { Scenes, GameObjects, Types } from 'phaser'
-import Component from './Component'
+import { Scenes, GameObjects, Time } from 'phaser';
+import Component from './Component';
+import Tile from '../prefabs/Tile';
+import { Puzzle as PuzzlePlugin } from '../plugins/Puzzle';
 
 class Puzzle extends Component {
+  /**
+   * 
+   * @param {GameObjects.Container} gameObject 
+   */
   constructor (gameObject) {
     super(gameObject)
     this.gameObject = gameObject
@@ -39,30 +45,19 @@ class Puzzle extends Component {
   /** @type {string} */
   onTileMove = 'event-name'
   /** @type {string} */
-  onUpdateTileFrame = 'event-name'
-  /** @type {string} */
   onNewGame = 'event-name'
   /** @type {boolean} */
   #noMoving = true
   /** @type {boolean} */
   #notSolved = true
-  /** @type {Array} */
-  #tweens = []
-  /** @type {Types.Tweens.TimelineBuilderConfig} */
-  #appearanceConfig = {
-    duration: 420,
-    ease: 'Power1',
-    paused: true,
-    tweens: this.#tweens
-  }
-  /** @type {} */
-  #combination;
-  /** @type {} */
-  #playItems;
+  /** @type {Time.Timeline} */
+  #appearance;
+  /** @type {PuzzlePlugin} */
+  #puzzle;
 
   #boardPosition (tileIndex) {
     const col = tileIndex % this.gridWidth
-    const row = Math.floor(tileIndex / this.gridHeight)
+    const row = ~~(tileIndex / this.gridHeight)
 
     const x = this.cellWidth * col + this.cellWidth * 0.5
     const y = this.cellHeight * row + this.cellHeight * 0.5
@@ -76,33 +71,18 @@ class Puzzle extends Component {
       if (values[i] !== 0) {
         const tile = this.gameObject.list[j]
         tile.setPosition(position.x, position.y)
-        tile.setTile(
-          this.#playItems.usedItem,
-          values[i].toString(),
-          this.#playItems.color
-        )
+        tile.setTile(`tile${values[i]}`, `${values[i]}`)
         tile.setNumberVisible(false)
         ++j
       }
     }
   }
 
-  #updateTileFrames () {
-    this.gameObject.iterate((tile) => {
-      tile.updateFrame(this.#playItems.usedItem, this.#playItems.color)
-    })
-  }
-
   #newGame () {
-    this.#combination.align()
-    this.#combination.shuffle()
-    if (!this.#combination.isSolvable()) {
-      this.#combination.rotateLeft()
-    }
-    this.#updateTiles(this.#combination.values)
+    this.#puzzle.generate()
+    this.#updateTiles(this.#puzzle.combination)
     this.gameObject.iterate((tile) => tile.setAlpha(0))
-    const appearance = this.scene.tweens.timeline(this.#appearanceConfig)
-    appearance.play()
+    this.#appearance.play()
     this.#notSolved = true
   }
 
@@ -129,9 +109,9 @@ class Puzzle extends Component {
     ) {
       this.#noMoving = false
       // Update combination
-      const tileIndex = this.#combination.arrayIndex(hitPosition)
-      const tileNumber = this.#combination.values[tileIndex].toString()
-      this.#combination.swapTiles(tileIndex, gapIndex)
+      const tileIndex = this.#puzzle.tileIndex(hitPosition)
+      const tileNumber = this.#puzzle.tileNumber(tileIndex)
+      this.#puzzle.move(tileIndex, gapIndex)
       // Update puzzle
       const tile = this.gameObject.list.find(
         (t) => tileNumber === t.number.text
@@ -161,7 +141,7 @@ class Puzzle extends Component {
     if (this.#notSolved) {
       const wasMove = this.#tryMove(direction, hitPosition, gapIndex)
       if (wasMove) {
-        this.#notSolved = this.#combination.solved() === false
+        this.#notSolved = this.#puzzle.solved() === false
       }
       const eventName = wasMove ? this.onTileMoving : this.onTileLock
       this.scene.events.emit(eventName)
@@ -170,34 +150,38 @@ class Puzzle extends Component {
 
   awake () {
     // Create a puzzle
+    const tweens = []
     const length = this.gridWidth * this.gridHeight - 1;
     for (let i = 0; i < length; ++i) {
       const position = this.#boardPosition(i);
-      const tile = TilePrefab.make(this.scene, position.x, position.y);
+      const tile = Tile.make(this.scene, position.x, position.y);
       tile.setAlpha(0);
       this.gameObject.add(tile);
       // Create an appearance animation of the puzzle
-      this.#tweens.push({
-        targets: tile,
-        alpha: { from: 0, to: 1 },
-        scale: { from: 0, to: 1 },
-        offset: i * 30,
-        onStart: () => tile.setNumberVisible(true),
+      tweens.push({
+        at: i * 20,
+        tween: {
+          targets: tile,
+          alpha: { from: 0, to: 1 },
+          scale: { from: 0, to: 1 },
+          persist: true,
+          duration: 160,
+        }
       });
     }
+    this.#appearance = this.scene.add.timeline(tweens)
+    this.#puzzle = this.scene.puzzle
   }
 
   start () {
     this.scene.events.on(this.onTileMove, this.#moveTile, this);
     this.scene.events.on(this.onNewGame, this.#newGame, this);
-    this.scene.events.on(this.onUpdateTileFrame, this.#updateTileFrames, this);
     this.scene.events.once(Scenes.Events.PRE_UPDATE, this.#newGame, this);
   }
 
   destroy () {
     this.scene.events.off(this.onTileMove, this.#moveTile, this);
     this.scene.events.off(this.onNewGame, this.#newGame, this);
-    this.scene.events.off(this.onUpdateTileFrame, this.#updateTileFrames, this);
     this.scene.events.off(Scenes.Events.PRE_UPDATE, this.#newGame, this);
   }
 
