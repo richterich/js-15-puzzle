@@ -8,6 +8,10 @@ import Component from './Component';
 import PlayMoves from '../plugins/PlayMoves';
 
 class Moves extends Component {
+  /**
+   * 
+   * @param {GameObjects.Text} gameObject 
+   */
   constructor (gameObject) {
     super(gameObject);
     this.gameObject = gameObject;
