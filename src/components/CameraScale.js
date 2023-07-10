@@ -3,14 +3,14 @@
  * @copyright   2020 Alexander Richterich
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
-import Component from './Component'
 import { Structs, Scale, GameObjects, Cameras } from 'phaser'
+import Component from './Component'
 
 const { ceil, max } = Math
 
 class CameraScale extends Component {
   /**
-   * @param {GameObjects.GameObject} gameObject The entity.
+   * @param {GameObjects.Layer} gameObject The entity.
    */
   constructor (gameObject) {
     super(gameObject)
@@ -34,18 +34,18 @@ class CameraScale extends Component {
   /** @type {Structs.Size} */
   parent
   /** @type {Cameras.Scene2D.Camera} */
-  mainCamera
+  #mainCamera
 
-  resize (gameSize) {
+  #resize (gameSize) {
     const { height, width } = gameSize
 
     this.parent.setSize(width, height)
     this.sizer.setSize(width, height)
 
-    this.updateCamera(this.mainCamera)
+    this.#updateCamera(this.#mainCamera)
   }
 
-  updateCamera (camera) {
+  #updateCamera (camera) {
     const x = ceil((this.parent.width - this.sizer.width) * 0.5)
     const y = ceil((this.parent.height - this.sizer.height) * 0.5)
     const scaleX = this.sizer.width / this.gameWidth
@@ -71,16 +71,16 @@ class CameraScale extends Component {
     this.parent.setSize(width, height)
     this.sizer.setSize(width, height)
 
-    this.mainCamera = this.scene.cameras.main
+    this.#mainCamera = this.scene.cameras.main
   }
 
   start () {
-    this.scene.scale.on(Scale.Events.RESIZE, this.resize, this)
-    this.updateCamera(this.mainCamera)
+    this.scene.scale.on(Scale.Events.RESIZE, this.#resize, this)
+    this.#updateCamera(this.#mainCamera)
   }
 
   destroy () {
-    this.scene.scale.off(Scale.Events.RESIZE, this.resize, this)
+    this.scene.scale.off(Scale.Events.RESIZE, this.#resize, this)
   }
 }
 
