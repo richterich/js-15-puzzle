@@ -13,14 +13,14 @@ class Combination {
     /**
      * @constructs Combination that contains integer values of tiles.
      */
-    constructor() {
+    constructor () {
         this.values = new Array(LENGTH);
     }
     /**
      * @method inversions - returns quantity of inversions for combination.
      * @summary There is a tile number with a number that greater than a current tile number.
      */
-    inversions() {
+    inversions () {
         let numberOfInversions = 0;
         for (let i = 0; i < LENGTH; ++i) {
             if (0 !== this.values[i]) {
@@ -37,7 +37,7 @@ class Combination {
      * @method emptyLine - finds the line number of the empty tile, starts from last row.
      * @returns { NUmber } - integer value that indicate row with empty tile.
      */
-    emptyLine() {
+    emptyLine () {
         let lineNumber;
         for (let i = LENGTH - 1; i >= 0; --i) {
             if (0 === this.values[i]) {
@@ -50,7 +50,7 @@ class Combination {
     /**
      * @method align - align the combination from 1 to 15, last is zero.
      */
-    align() {
+    align () {
         for (let i = 0; i < LENGTH - 1; i++) {
             this.values[i] = 1 + i;
         }
@@ -60,7 +60,7 @@ class Combination {
      * @method shuffle - shuffles the combination of the tiles.
      * @summary Shuffled combination can be unsolvable.
      */
-    shuffle() {
+    shuffle () {
         let randomIndex, tempValue;
         for (let i = 0; i < LENGTH; ++i) {
             randomIndex = Math.floor(Math.random() * LENGTH);
@@ -74,7 +74,7 @@ class Combination {
      * @summary After rotation there will be a combination in which the digits of the tiles appear
      * to be lying on their sides.
      */
-    rotateLeft() {
+    rotateLeft () {
         let rotatedValues = new Array(LENGTH);
         let index = 0;
         for (let i = 0; i < LENGTH; ++i) {
@@ -93,18 +93,18 @@ class Combination {
      * @param { Number } index - index of a tile.
      * @returns { Object } Row (x) and Column (y) of a tile in the game board.
      */
-    gridPosition(index) {
-        let y = Math.floor(index / SIDE);
-        let x = index % SIDE;
-        return { x: x, y: y };
+    gridPosition (index) {
+        let y = Math.ceil((index + 1) / SIDE);
+        let x = (index % SIDE) + 1;
+        return { x, y };
     }
     /**
      * @method arrayIndex - gives index in the array of the tiles by its x and y position in the grid.
      * @param { Object } gridPosition Row (x) and Column (y) of a tile in the game board.
      * @returns { Number } index of a tile. From 0 to 15.
      */
-    arrayIndex(gridPosition) {
-        return SIDE * gridPosition.y + gridPosition.x;
+    arrayIndex (gridPosition) {
+        return SIDE * (gridPosition.y - 1) + (gridPosition.x - 1);
     }
     /**
      * @method swapTiles - swaps two tiles by their indexes.
@@ -112,7 +112,7 @@ class Combination {
      * @param { Number } toIndex - an index of a tile wich will be swapped.
      * @summary The last will be placed to the place of the former.
      */
-    swapTiles(fromIndex, toIndex) {
+    swapTiles (fromIndex, toIndex) {
         let value = this.values[toIndex];
         this.values[toIndex] = this.values[fromIndex];
         this.values[fromIndex] = value;
@@ -120,7 +120,7 @@ class Combination {
     /**
      * @method emptyIndex - gives index of the empty space in the array of the tiles.
      */
-    emptyIndex() {
+    emptyIndex () {
         const emptyElemet = (tile) => tile === 0;
         return this.values.findIndex(emptyElemet);
     }
@@ -128,7 +128,7 @@ class Combination {
      * @method isSolvable - Checks the combination for solvability.
      * @returns { Boolean } - True if combination can be solved, otherwise - False.
      */
-    isSolvable() {
+    isSolvable () {
         const inversionsNumber = this.inversions();
         const emptyTileRow = this.emptyLine();
         if (0 !== emptyTileRow % 2) {
