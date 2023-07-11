@@ -5,7 +5,7 @@
  */
 import { GameObjects, Tweens } from 'phaser';
 import Component from './Component';
-import PlayMoves from '../plugins/PlayMoves';
+import { PlayMoves } from '../plugins/PlayMoves';
 
 class Moves extends Component {
   /**
@@ -40,12 +40,12 @@ class Moves extends Component {
 
   #updateMoves () {
     this.#playmoves.increase();
-    this.gameObject.text = this.#playmoves.movesString();
+    this.gameObject.text = this.#playmoves.movesString;
   }
 
   #resetMoves () {
     this.#playmoves.reset();
-    this.gameObject.text = this.#playmoves.movesString();
+    this.gameObject.text = this.#playmoves.movesString;
     this.#pushTween.play();
   }
 

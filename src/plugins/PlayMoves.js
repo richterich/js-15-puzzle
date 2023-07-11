@@ -13,6 +13,14 @@ class PlayMoves extends Plugins.BasePlugin {
   /** @type {number} */
   #moves = 0;
 
+  get moves () {
+    return this.#moves;
+  }
+
+  get movesString () {
+    return `${this.#moves}`;
+  }
+
   init () {
     this.game.events.emit(PLAYMOVES_INITIALIZED, this);
   }
@@ -31,10 +39,6 @@ class PlayMoves extends Plugins.BasePlugin {
 
   increase () {
     ++this.#moves;
-  }
-
-  movesString () {
-    return `${this.#moves}`;
   }
 }
 
