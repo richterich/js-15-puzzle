@@ -4,7 +4,7 @@
  * @license     {@link https://opensource.org/licenses/MIT|MIT License}
  */
 import { Plugins } from 'phaser';
-import Combination from '../Combination';
+import Combination from '../lib/Combination';
 
 const PUZZLE_INITIALIZED = 'puzzle:initialized';
 const PLUGIN_PUZZLE_START = 'puzzle-plugin:start';
