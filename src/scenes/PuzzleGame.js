@@ -25,7 +25,6 @@ class PuzzleGame extends Scene {
         const playTimeLabel = this.add.text(32, 60, '00:00', {
             fontFamily: 'FreeSans',
             fontSize: '96px',
-            fontStyle: 'bold',
         });
         playTimeLabel.setColor('#774936');
         gameLayer.add(playTimeLabel);
@@ -46,7 +45,6 @@ class PuzzleGame extends Scene {
         const currentMoves = this.add.text(460, 236, '0', {
             fontFamily: 'FreeSans',
             fontSize: '60px',
-            fontStyle: 'bold'
         });
         currentMoves.setColor('#ffffff');
         currentMoves.setOrigin(0.5, 0.5);
@@ -68,7 +66,6 @@ class PuzzleGame extends Scene {
         const currentBestMoves = this.add.text(615, 236, '0', {
             fontFamily: 'FreeSans',
             fontSize: '60px',
-            fontStyle: 'bold'
         });
         currentBestMoves.setColor('#ffffff');
         currentBestMoves.setOrigin(0.5, 0.5);
@@ -82,7 +79,6 @@ class PuzzleGame extends Scene {
         const newGameLabel = this.add.text(68, 216, 'New Game', {
             fontFamily: 'FreeSans',
             fontSize: '22px',
-            fontStyle: 'bold'
         });
         newGameLabel.setColor('#ffffff');
         gameLayer.add(newGameLabel);
